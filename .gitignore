@@ -1,0 +1,6 @@
+.venv/
+.vscode/
+*.csv
+*.txt
+*.egg-info
+*.DS_Store
