@@ -9,3 +9,6 @@ get_data:
 
 create_data:
 	python3 src/dutch_sentiment_classifier/create_data.py
+
+train:
+	python3 src/dutch_sentiment_classifier/train.py

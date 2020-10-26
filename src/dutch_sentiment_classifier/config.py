@@ -20,3 +20,7 @@ MAX_DF = 0.75
 MIN_DF = 1
 VOCAB_SIZE = 2000
 NGRAM_RANGE = (1, 1)
+
+# MODEL
+TRAINED_MODEL_DIR = BASE_DIR / "trained_model"
+MODEL_NAME = TRAINED_MODEL_DIR / "sentiment_classifier.pkl"
