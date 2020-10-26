@@ -12,3 +12,6 @@ create_data:
 
 train:
 	python3 src/dutch_sentiment_classifier/train.py
+
+cv:
+	python3 src/dutch_sentiment_classifier/cv.py
