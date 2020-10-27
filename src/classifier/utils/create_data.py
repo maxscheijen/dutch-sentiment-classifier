@@ -23,9 +23,9 @@ class Dataset:
 
                 # Create label from path
                 if "pos" in filepath:
-                    sentiment = "positive"
+                    sentiment = "positief"
                 else:
-                    sentiment = "negative"
+                    sentiment = "negatief"
 
                 # Append dataframe to list
                 dfs.append(pd.DataFrame({"text": [text],
