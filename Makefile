@@ -12,3 +12,9 @@ train:
 
 cv:
 	python3 src/classifier/cv.py
+
+api:
+	gunicorn src.api.main:app --reload
+
+app:
+	streamlit run src/app/app.py
