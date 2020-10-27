@@ -4,14 +4,11 @@ install:
 	pip install --upgrade pip 
 	pip install -r requirements.txt
 
-get_data:
-	python3 src/dutch_sentiment_classifier/get_data.py
-
 create_data:
-	python3 src/dutch_sentiment_classifier/create_data.py
+	python3 src/classifier/dataset.py
 
 train:
-	python3 src/dutch_sentiment_classifier/train.py
+	python3 src/classifier/train.py
 
 cv:
-	python3 src/dutch_sentiment_classifier/cv.py
+	python3 src/classifier/cv.py

@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from dutch_sentiment_classifier import config
+from classifier import config
 
 
 # Load stopwords

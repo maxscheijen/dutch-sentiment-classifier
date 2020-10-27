@@ -5,8 +5,8 @@ from tqdm import tqdm
 from sklearn.model_selection import StratifiedKFold
 from sklearn import metrics
 
-from dutch_sentiment_classifier import config
-from dutch_sentiment_classifier.sentiment_model import SentimentClassifier
+from classifier import config
+from classifier.sentiment_model import SentimentClassifier
 
 
 def run_cross_validation() -> None:
@@ -56,7 +56,7 @@ def run_cross_validation() -> None:
         cv_metrics["f1"].append(metrics.f1_score(y_valid, y_pred))
 
     # Save metrics as json
-    pd.DataFrame(cv_metrics).to_json("metrics.json")
+    pd.DataFrame(cv_metrics).to_json(config.METRIC_FILE)
 
 
 if __name__ == "__main__":

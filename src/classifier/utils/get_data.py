@@ -33,24 +33,3 @@ def move_raw_data() -> None:
     os.system("mv data/110kDBRD/train data/train")
     os.system("mv data/110kDBRD/test data/test")
     os.system("rm -rf data/110kDBRD/ data/dutch-sentiment-data.tgz")
-
-
-if __name__ == "__main__":
-    # Path to dataset
-    url = "https://github.com/benjaminvdb/110kDBRD/releases/download/v2.0/110kDBRD_v2.tgz"
-
-    # Delete data
-    os.system("rm -rf data/dutch-sentiment-data* \
-        data/110kDBRD/ data/train/ data/test/")
-
-    # Download data
-    print("Downloading data...")
-    download_data(url=url)
-
-    # Extract data
-    print("Extracting data...")
-    extract_data("data/dutch-sentiment-data.tgz")
-
-    # Move data
-    print("Moving data...")
-    move_raw_data()

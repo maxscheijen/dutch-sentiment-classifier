@@ -2,7 +2,7 @@ import glob
 import pandas as pd
 
 from tqdm import tqdm
-from dutch_sentiment_classifier import config
+from classifier import config
 
 
 class Dataset:
@@ -36,22 +36,10 @@ class Dataset:
 
     def save_data(self):
         # Create train and test split
-        train_data = self.dataframe.sample(frac=0.7, random_state=config.SEED)
+        train_data = self.dataframe.sample(frac=config.SPLIT_SIZE,
+                                           random_state=config.SEED)
         test_data = self.dataframe.iloc[train_data.index]
 
         # Save data
         train_data.to_csv(config.TRAIN_DATA, index=None)
         test_data.to_csv(config.TEST_DATA, index=None)
-
-
-if __name__ == "__main__":
-    # Create Dataset object
-    data = Dataset()
-
-    # Load data
-    print("Loading data...")
-    data.load_data()
-
-    # Save data
-    print("Save data...")
-    data.save_data()

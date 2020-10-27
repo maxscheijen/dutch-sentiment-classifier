@@ -5,8 +5,8 @@ import joblib
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 
-from dutch_sentiment_classifier import config
-from dutch_sentiment_classifier.process_data import text_processors
+from classifier import config
+from classifier.utils.process_data import text_processors
 
 
 class SentimentClassifier:
@@ -86,7 +86,7 @@ class SentimentClassifier:
             Save trained model path
         """
         # Create trained model directory
-        config.TRAINED_MODEL_DIR.mkdir(exist_ok=True)
+        config.TRAINED_MODEL_DIR.mkdir(exist_ok=True, parents=True)
 
         # Save model
         joblib.dump(self.clf, config.MODEL_NAME)
