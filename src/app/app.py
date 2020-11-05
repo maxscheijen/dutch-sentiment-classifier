@@ -54,7 +54,7 @@ if more_info:
         fi_sentence = feature_importance_prediction(clf, sentence)
 
         # Display dataframe
-        st.dataframe(fi_sentence, height=(100//3)*len(fi_sentence))
+        st.dataframe(fi_sentence, height=((100//3)+100)*len(fi_sentence))
 # Hide streamlit menu and footer
 hide_streamlit_style = """
             <style>
