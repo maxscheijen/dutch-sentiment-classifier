@@ -67,6 +67,7 @@ if more_info:
 
         # Display dataframe
         st.dataframe(fi_sentence_color, height=((100//3)+100)*len(fi_sentence))
+
 # Hide streamlit menu and footer
 hide_streamlit_style = """
             <style>
