@@ -15,8 +15,8 @@ def run_cross_validation() -> None:
 
     # Encode labels for evaluation
     label_mapping = {
-        "negative": 0,
-        "positive": 1,
+        "negatief": 0,
+        "positief": 1,
     }
 
     # Features and target
@@ -56,7 +56,9 @@ def run_cross_validation() -> None:
         cv_metrics["f1"].append(metrics.f1_score(y_valid, y_pred))
 
     # Save metrics as json
-    pd.DataFrame(cv_metrics).to_json(config.METRIC_FILE)
+    metrics_df = pd.DataFrame(cv_metrics).mean()
+    metrics_df.to_json(config.METRIC_FILE)
+    print(metrics_df)
 
 
 if __name__ == "__main__":
