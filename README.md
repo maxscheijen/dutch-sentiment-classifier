@@ -1,6 +1,10 @@
 # Dutch Sentiment Classifier
 
-This Python package is able to determine the sentiment of a Dutch text. Includes a interactive web app and a REST API
+This Python package is able to determine the sentiment of a Dutch text. Includes a interactive web app and a REST API.
+
+[Web App Demo](https://dutch-sentiment-classifier.herokuapp.com/)
+
+## Install
 
 ```shell
 # Install PyPy packages and local package
