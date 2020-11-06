@@ -59,10 +59,11 @@ if more_info:
                                      n=25, as_cmap=True)
         min_color = fi_sentence.min()["Belangrijkheid"]
         max_color = fi_sentence.max()["Belangrijkheid"]
+        v_color_value = np.array([abs(min_color), max_color]).max()
         fi_sentence_color = (fi_sentence.style
                              .background_gradient(cmap,
-                                                  vmin=min_color,
-                                                  vmax=max_color,
+                                                  vmin=-v_color_value,
+                                                  vmax=v_color_value,
                                                   axis=1))
 
         # Display dataframe
