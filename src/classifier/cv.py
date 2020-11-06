@@ -56,7 +56,7 @@ def run_cross_validation() -> None:
         cv_metrics["f1"].append(metrics.f1_score(y_valid, y_pred))
 
     # Save metrics as json
-    metrics_df = pd.DataFrame(cv_metrics).mean()
+    metrics_df = pd.DataFrame(cv_metrics).mean().round(2)
     metrics_df.to_json(config.METRIC_FILE)
     print(metrics_df)
 
