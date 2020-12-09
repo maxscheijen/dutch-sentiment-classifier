@@ -89,7 +89,7 @@ class SentimentClassifier:
         config.TRAINED_MODEL_DIR.mkdir(exist_ok=True, parents=True)
 
         # Save model
-        joblib.dump(self.clf, config.MODEL_NAME)
+        joblib.dump(self.clf, config.MODEL_NAME, compress=3)
 
     def load(self, path: str) -> "SentimentClassifier":
         """Load the trained sentiment model
