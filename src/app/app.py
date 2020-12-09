@@ -10,7 +10,12 @@ st.beta_set_page_config(page_title="Nederlandse Sentiment Classificatie",
                         page_icon="https://raw.githubusercontent.com/maxscheijen/maxscheijen.github.io/main/favicon.ico")
 
 # Load model
-clf = joblib.load(config.MODEL_NAME)
+@st.cache(allow_output_mutation=True)
+def load_model(path):
+    clf = joblib.load(path)
+    return clf
+
+clf = load_model(config.MODEL_NAME)
 
 # Header
 st.markdown("<h1>Sentiment Classificatie</h1>", unsafe_allow_html=True)
