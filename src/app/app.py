@@ -57,38 +57,42 @@ if more_info:
     if len(sentence) == 0:
         st.write("Je moet eerst een text invoeren!")
     else:
-        st.markdown("<h3>Gemarkeerde woorden op bassis van sentiment</h3>",
-                    unsafe_allow_html=True)
-        threshold = st.slider(min_value=0., max_value=6., value=1., step=0.1,
-                              label="Belangrijkheid drempel waarde")
+        try:
+            st.markdown("<h3>Gemarkeerde woorden op bassis van sentiment</h3>",
+                        unsafe_allow_html=True)
+            threshold = st.slider(min_value=0., max_value=6., value=.5, step=0.1,
+                                  label="Belangrijkheid drempel waarde")
 
-        # Calculate feature importance
-        fi_sentence = feature_importance_prediction(
-            clf, sentence, cuttoff=threshold)
+            # Calculate feature importance
+            fi_sentence = feature_importance_prediction(
+                clf, sentence, cuttoff=threshold)
 
-        # Display text with sentiment
-        st.markdown(f"<h4>{len(fi_sentence)} woorden met sentiment bij belangrijkheid drempelwaarde {threshold}</h4>",
-                    unsafe_allow_html=True)
-        sentiment_text = feature_importance_in_text(fi_sentence, sentence)
-        st.markdown(sentiment_text, unsafe_allow_html=True)
+            # Display text with sentiment
+            st.markdown(f"<h4>{len(fi_sentence)} woorden met sentiment bij belangrijkheid drempelwaarde {threshold}</h4>",
+                        unsafe_allow_html=True)
+            sentiment_text = feature_importance_in_text(fi_sentence, sentence)
+            st.markdown(sentiment_text, unsafe_allow_html=True)
 
-        st.write("<h3>Woorden en hun invloed op sentiment</h3>",
-                 unsafe_allow_html=True)
+            st.write("<h3>Woorden en hun invloed op sentiment</h3>",
+                     unsafe_allow_html=True)
 
-        # Create color map
-        cmap = sns.diverging_palette(h_neg=10, h_pos=147, s=74, l=50, sep=10,
-                                     n=25, as_cmap=True)
-        min_color = fi_sentence.min()["Belangrijkheid"]
-        max_color = fi_sentence.max()["Belangrijkheid"]
-        v_color_value = np.array([abs(min_color), max_color]).max()
-        fi_sentence_color = (fi_sentence.style
-                             .background_gradient(cmap,
-                                                  vmin=-v_color_value,
-                                                  vmax=v_color_value,
-                                                  axis=1))
+            # Create color map
+            cmap = sns.diverging_palette(h_neg=10, h_pos=147, s=74, l=50, sep=10,
+                                         n=25, as_cmap=True)
+            min_color = fi_sentence.min()["Belangrijkheid"]
+            max_color = fi_sentence.max()["Belangrijkheid"]
+            v_color_value = np.array([abs(min_color), max_color]).max()
+            fi_sentence_color = (fi_sentence.style
+                                 .background_gradient(cmap,
+                                                      vmin=-v_color_value,
+                                                      vmax=v_color_value,
+                                                      axis=1))
 
-        # Display dataframe
-        st.dataframe(fi_sentence_color, height=((100//3)+100)*len(fi_sentence))
+            # Display dataframe
+            st.dataframe(fi_sentence_color, height=(
+                (100//3)+100)*len(fi_sentence))
+        except:
+            st.markdown("Er is een fout opgetreden. Probeer een andere text!")
 
 # Hide streamlit menu and footer
 hide_streamlit_style = """
