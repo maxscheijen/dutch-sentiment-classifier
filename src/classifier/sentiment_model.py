@@ -4,15 +4,17 @@ import joblib
 
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
+from sklearn.base import BaseEstimator, TransformerMixin
 
 from classifier import config
 from classifier.utils.process_data import text_processors
 
 
-class SentimentClassifier:
+class SentimentClassifier(BaseEstimator, TransformerMixin):
     """Sentiment classifier that can be trained on text data with
     corresponding sentiment labels.
     """
+
     def __init___(self):
         self.clf = None
 
@@ -33,7 +35,7 @@ class SentimentClassifier:
         # Declaring model pipeline
         self.clf = Pipeline(steps=[
             ("text_processors", text_processors),
-            ("classifier", LogisticRegression())
+            ("classifier", LogisticRegression(C=4, n_jobs=-1))
         ])
 
         # Training sentiment model
