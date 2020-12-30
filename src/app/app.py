@@ -10,6 +10,8 @@ st.beta_set_page_config(page_title="Nederlandse Sentiment Classificatie",
                         page_icon="https://raw.githubusercontent.com/maxscheijen/maxscheijen.github.io/main/favicon.ico")
 
 # Load model
+
+
 @st.cache(allow_output_mutation=True)
 def load_model(path):
     clf = joblib.load(path)
@@ -55,7 +57,7 @@ if more_info:
     if len(sentence) == 0:
         st.write("Je moet eerst een text invoeren!")
     else:
-        st.markdown("<h3>Gemarkeerde worden op bassis van sentiment</h3>",
+        st.markdown("<h3>Gemarkeerde woorden op bassis van sentiment</h3>",
                     unsafe_allow_html=True)
         threshold = st.slider(min_value=0., max_value=6., value=1., step=0.1,
                               label="Belangrijkheid drempel waarde")
@@ -65,7 +67,7 @@ if more_info:
             clf, sentence, cuttoff=threshold)
 
         # Display text with sentiment
-        st.markdown(f"<h4>{len(fi_sentence)} sentiment woorden met sentiment bij belangrijkheid drempelwaarde {threshold}</h4>",
+        st.markdown(f"<h4>{len(fi_sentence)} woorden met sentiment bij belangrijkheid drempelwaarde {threshold}</h4>",
                     unsafe_allow_html=True)
         sentiment_text = feature_importance_in_text(fi_sentence, sentence)
         st.markdown(sentiment_text, unsafe_allow_html=True)
