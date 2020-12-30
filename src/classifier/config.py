@@ -29,5 +29,6 @@ MODEL_NAME = TRAINED_MODEL_DIR / "sentiment_classifier.pkl"
 
 # CROSS VALIDATION
 CV_SPLITS = 5
+METRICS = ["accuracy", "roc_auc", "f1", "recall", "precision"]
 METRICS_DIR = CLASSIFIER_DIR / "metrics"
 METRIC_FILE = METRICS_DIR / "metrics.json"

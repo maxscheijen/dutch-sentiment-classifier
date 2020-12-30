@@ -1,1 +1,1 @@
-{"acc":0.88,"auc":0.88,"f1":0.88}
+{"fit_time":6.9212,"score_time":3.3115,"test_accuracy":0.8771,"test_roc_auc":0.9473,"test_f1":0.8775,"test_recall":0.8856,"test_precision":0.8696}
