@@ -59,7 +59,7 @@ if more_info:
     else:
         st.markdown("<h3>Gemarkeerde worden op bassis van sentiment</h3>",
                     unsafe_allow_html=True)
-        threshold = st.slider(min_value=0., max_value=6., value=3., step=0.01,
+        threshold = st.slider(min_value=0., max_value=6., value=3., step=0.1,
                               label="Belangrijkheid drempel waarde")
 
         # Calculate feature importance

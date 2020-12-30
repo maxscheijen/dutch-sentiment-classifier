@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 import numpy as np
 
@@ -23,8 +24,15 @@ def feature_importance_prediction(model, text, cuttoff=0.5):
     fi_predict = fi_predict.loc[(fi_predict["Belangrijkheid"] > cuttoff) |
                                 (fi_predict["Belangrijkheid"] < -cuttoff)]
     fi_predict['Belangrijkheid'] = fi_predict['Belangrijkheid'].round(2)
+    fi_predict = fi_predict.reset_index(drop=True)
 
-    return fi_predict.reset_index(drop=True)
+    # Uppercase first character if is start of sentence
+    for word in text.split(" "):
+        if word[0].isupper() and word.lower() in fi["Woord"].values:
+            fi_predict["Woord"] = fi_predict["Woord"].replace(
+                word.lower(), word.title())
+
+    return fi_predict
 
 
 def feature_importance_in_text(fi_df, text):
@@ -35,7 +43,7 @@ def feature_importance_in_text(fi_df, text):
         index=fi_df.Woord.values).to_dict()
 
     for word, replace in replace_dict.items():
-        text = text.replace(" " + word.lower() + " ",
-                            " " + replace.lower() + " ")
+        text = re.sub(" " + r"[a-zA-Z]" + word[1:] + " ",
+                            " " + replace + " ", text)
 
     return text
