@@ -6,6 +6,8 @@ from classifier import config
 
 
 class Dataset:
+    """Create dataset class"""
+
     def __init__(self):
         # Get all txt files
         self.paths = sorted(glob.glob("data/*/*/*.txt"))

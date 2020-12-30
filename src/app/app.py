@@ -53,14 +53,19 @@ st.write("Door de knop hieronder aan te vinken krijg je een tabel te zien. Deze 
 # Display detailed sentiment information
 more_info = st.checkbox("Laat zien!")
 
+# Get more info
 if more_info:
+    # Check if there is input text
     if len(sentence) == 0:
         st.write("Je moet eerst een text invoeren!")
     else:
         try:
             st.markdown("<h3>Gemarkeerde woorden op bassis van sentiment</h3>",
                         unsafe_allow_html=True)
-            threshold = st.slider(min_value=0., max_value=6., value=.5, step=0.1,
+
+            # Threshold slider
+            threshold = st.slider(min_value=0., max_value=6., value=.5,
+                                  step=0.1,
                                   label="Belangrijkheid drempel waarde")
 
             # Calculate feature importance
@@ -77,8 +82,8 @@ if more_info:
                      unsafe_allow_html=True)
 
             # Create color map
-            cmap = sns.diverging_palette(h_neg=10, h_pos=147, s=74, l=50, sep=10,
-                                         n=25, as_cmap=True)
+            cmap = sns.diverging_palette(h_neg=10, h_pos=147, s=74, l=50,
+                                         sep=10, n=25, as_cmap=True)
             min_color = fi_sentence.min()["Belangrijkheid"]
             max_color = fi_sentence.max()["Belangrijkheid"]
             v_color_value = np.array([abs(min_color), max_color]).max()
@@ -92,6 +97,7 @@ if more_info:
             st.dataframe(fi_sentence_color, height=(
                 (100//3)+100)*len(fi_sentence))
         except:
+            # Display text if more info fails
             st.markdown("Er is een fout opgetreden. Probeer een andere text!")
 
 # Hide streamlit menu and footer
