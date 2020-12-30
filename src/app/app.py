@@ -24,7 +24,7 @@ clf = load_model(config.MODEL_NAME)
 st.markdown("<h1>Sentiment Classificatie</h1>", unsafe_allow_html=True)
 
 # Get user input
-sentence = str(st.text_area(label='Voer hier uw text in:'))
+sentence = str(st.text_area(label='Voer hier uw text in:', height=250))
 
 # Predict input user
 if sentence:
@@ -59,7 +59,7 @@ if more_info:
     else:
         st.markdown("<h3>Gemarkeerde worden op bassis van sentiment</h3>",
                     unsafe_allow_html=True)
-        threshold = st.slider(min_value=0., max_value=6., value=3., step=0.1,
+        threshold = st.slider(min_value=0., max_value=6., value=1., step=0.1,
                               label="Belangrijkheid drempel waarde")
 
         # Calculate feature importance
@@ -67,6 +67,8 @@ if more_info:
             clf, sentence, cuttoff=threshold)
 
         # Display text with sentiment
+        st.markdown(f"<h4>{len(fi_sentence)} sentiment woorden met sentiment bij belangrijkheid drempelwaarde {threshold}</h4>",
+                    unsafe_allow_html=True)
         sentiment_text = feature_importance_in_text(fi_sentence, sentence)
         st.markdown(sentiment_text, unsafe_allow_html=True)
 
