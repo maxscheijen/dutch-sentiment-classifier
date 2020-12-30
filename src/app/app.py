@@ -4,16 +4,19 @@ import numpy as np
 import seaborn as sns
 
 from classifier import config
-from classifier.utils.feature_importance import feature_importance_prediction
+from classifier.utils.feature_importance import feature_importance_prediction, feature_importance_in_text
 
 st.beta_set_page_config(page_title="Nederlandse Sentiment Classificatie",
                         page_icon="https://raw.githubusercontent.com/maxscheijen/maxscheijen.github.io/main/favicon.ico")
 
 # Load model
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True)
+
+
 def load_model(path):
     clf = joblib.load(path)
     return clf
+
 
 clf = load_model(config.MODEL_NAME)
 
@@ -21,7 +24,7 @@ clf = load_model(config.MODEL_NAME)
 st.markdown("<h1>Sentiment Classificatie</h1>", unsafe_allow_html=True)
 
 # Get user input
-sentence = str(st.text_input(label='Voer hier uw text in:'))
+sentence = str(st.text_area(label='Voer hier uw text in:'))
 
 # Predict input user
 if sentence:
@@ -38,7 +41,8 @@ if sentence:
         color = "green"
 
     # Display prediction
-    st.markdown(f'Je text is <strong><span style="color: {color}">{y_pred}</span></strong> met een kans van {y_proba.max():.0%}.', unsafe_allow_html=True)
+    st.markdown(
+        f'Je text is <strong><span style="color: {color}">{y_pred}</span></strong> met een kans van {y_proba.max():.0%}.', unsafe_allow_html=True)
 
 # Detail header
 st.write("<h2>Meer informatie</h2>", unsafe_allow_html=True)
@@ -53,11 +57,21 @@ if more_info:
     if len(sentence) == 0:
         st.write("Je moet eerst een text invoeren!")
     else:
-        st.write("<h3>Woorden en hun invloed op sentiment</h3>",
-                 unsafe_allow_html=True)
+        st.markdown("<h3>Gemarkeerde worden op bassis van sentiment</h3>",
+                    unsafe_allow_html=True)
+        threshold = st.slider(min_value=0., max_value=6., value=3., step=0.01,
+                              label="Belangrijkheid drempel waarde")
 
         # Calculate feature importance
-        fi_sentence = feature_importance_prediction(clf, sentence)
+        fi_sentence = feature_importance_prediction(
+            clf, sentence, cuttoff=threshold)
+
+        # Display text with sentiment
+        sentiment_text = feature_importance_in_text(fi_sentence, sentence)
+        st.markdown(sentiment_text, unsafe_allow_html=True)
+
+        st.write("<h3>Woorden en hun invloed op sentiment</h3>",
+                 unsafe_allow_html=True)
 
         # Create color map
         cmap = sns.diverging_palette(h_neg=10, h_pos=147, s=74, l=50, sep=10,
