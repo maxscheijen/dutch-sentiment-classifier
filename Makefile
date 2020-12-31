@@ -14,7 +14,7 @@ cv:
 	python3 src/classifier/cv.py
 
 api:
-	gunicorn src.api.main:app --reload
+	gunicorn src.api.run:api --reload
 
 app:
 	streamlit run src/app/app.py
