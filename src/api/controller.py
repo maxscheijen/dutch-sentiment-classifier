@@ -1,23 +1,23 @@
 import joblib
 
-from flask import Flask, request, jsonify
+from flask import Blueprint, request, jsonify
 from classifier import config
 
 # Create Flask app
-app = Flask(__name__)
+prediction_api = Blueprint("prediction_api", __name__)
 
 # Load trained model
 clf = joblib.load(config.MODEL_NAME)
 
 
 # Health endpoint
-@app.route("/health", methods=["GET"])
+@prediction_api.route("/health", methods=["GET"])
 def health():
     return "Working"
 
 
 # Prediction endpoint
-@app.route("/predict", methods=['POST'])
+@prediction_api.route("/predict", methods=['POST'])
 def predict():
     # Get request for input data
     input_data = request.get_json(force=True)
@@ -28,5 +28,5 @@ def predict():
     return jsonify(output)
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     prediction_api.run()
